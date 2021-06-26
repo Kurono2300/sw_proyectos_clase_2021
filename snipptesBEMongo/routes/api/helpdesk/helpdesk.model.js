@@ -137,3 +137,106 @@ module.exports.setHolder = async (id, identidad, nombre, correo) =>{
         throw(ex);
     }
 }
+
+
+
+module.exports.getByUser = async (identidadUser, estado, page) => {
+    try {
+        let itemsPerPage = 25;
+        const filter = {"estado":estado,"usuario.identidad":identidadUser};
+        let options = {
+        skip: (page - 1) * itemsPerPage,
+        limit: itemsPerPage//,
+        //projection: {tipo:1, observacion:1, servicioAfectado:1},
+        //sort:[["fecha", 1]]
+    };
+
+    let docsCursor = helpdeskCollection.find(filter, options);
+    let rownum = await docsCursor.count();
+    let rows = await docsCursor.toArray()
+    return {rownum, rows};
+    } catch (ex) {
+        console.log(ex);
+        throw (ex);
+    }
+}
+
+
+module.exports.getByHolder = async (identidadHolder, estado, page) => {
+    try {
+        itemsPerPage = 25;
+        const filter = {"estado":estado,"holder.identidad":identidadHolder};
+        let options = {
+        skip: (page - 1) * itemsPerPage,
+        limit: itemsPerPage//,
+        //projection: {tipo:1, observacion:1, servicioAfectado:1},
+        //sort:[["fecha", 1]]
+    };
+
+    let docsCursor = helpdeskCollection.find(filter, options);
+    let rownum = await docsCursor.count();
+    let rows = await docsCursor.toArray()
+    return {rownum, rows};
+    } catch (ex) {
+        console.log(ex);
+        throw (ex);
+    }
+}
+
+
+module.exports.getTickets = async (estado, page) => {
+    try {
+        let itemsPerPage = 25;
+        const filter = {"estado":estado};
+        let options = {
+        skip: (page - 1) * itemsPerPage,
+        limit: itemsPerPage//,
+        //projection: {tipo:1, observacion:1, servicioAfectado:1},
+        //sort:[["fecha", 1]]
+    };
+
+    let docsCursor = helpdeskCollection.find(filter, options);
+    let rownum = await docsCursor.count();
+    let rows = await docsCursor.toArray()
+    return {rownum, rows};
+    } catch (ex) {
+        console.log(ex);
+        throw (ex);
+    }
+}
+
+
+
+module.exports.getTicketsByDateDesc = async (estado, page) => {
+    try {
+        let itemsPerPage = 25;
+        const filter = {"estado":estado};
+        let options = {
+        skip: (page - 1) * itemsPerPage,
+        limit: itemsPerPage,
+        //projection: {tipo:1, observacion:1, servicioAfectado:1},
+        sort:[["fecha",'desc',1]]
+    };
+
+    let docsCursor = helpdeskCollection.find(filter, options);
+    let rownum = await docsCursor.count();
+    let rows = await docsCursor.toArray()
+    return {rownum, rows};
+    } catch (ex) {
+        console.log(ex);
+        throw (ex);
+    }
+}
+
+
+module.exports.getTicketsById = async (id)=>{
+    try {
+        const _id = new ObjectId(id);
+        const filter =  {_id: _id};
+        let row = await helpdeskCollection.findOne(filter);
+        return row;
+    } catch(ex){
+        console.log(ex);
+        throw(ex);
+    }
+}

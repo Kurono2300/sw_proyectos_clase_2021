@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { addOne, addnNote, setClosingNote,
-        setEvaluationNote, setHolder} = require('./helpdesk.model')
+        setEvaluationNote, setHolder, getByUser,
+        getByHolder, getTickets, getTicketsByDateDesc, getTicketsById} = require('./helpdesk.model')
 
 
 router.post("/nuevo", async (req, res)=>{
@@ -69,5 +70,73 @@ router.put("/capturarTicket/:id", async (req, res)=>{
 		res.status(500).json({ "msg": "Error" });
 	}
 });
+
+
+
+router.get("/ticketsbyuser/:estado/:page", async (req, res) => {
+	try {
+		let { estado, page } = req.params;
+        const { identidad } = req.body;
+		let rows = await getByUser(identidad, estado, page);
+		res.status(200).json(rows);
+	} catch (ex) {
+		console.log(ex);
+		res.status(500).json({ "msg": "Error" });
+	}
+});
+
+
+router.get("/ticketsbyholder/:estado/:page", async (req, res) => {
+	try {
+		let { estado, page } = req.params;
+        const { identidad } = req.body;
+		let rows = await getByHolder(identidad, estado, page);
+		res.status(200).json(rows);
+	} catch (ex) {
+		console.log(ex);
+		res.status(500).json({ "msg": "Error" });
+	}
+});
+
+
+
+router.get("/tickets/:estado/:page", async (req, res) => {
+	try {
+		let { estado, page } = req.params;
+		let rows = await getTickets(estado, page);
+		res.status(200).json(rows);
+	} catch (ex) {
+		console.log(ex);
+		res.status(500).json({ "msg": "Error" });
+	}
+});
+
+
+
+router.get("/ticketsage/:estado/:page", async (req, res) => {
+	try {
+		let { estado, page } = req.params;
+		let rows = await getTicketsByDateDesc(estado, page);
+		res.status(200).json(rows);
+	} catch (ex) {
+		console.log(ex);
+		res.status(500).json({ "msg": "Error" });
+	}
+});
+
+
+
+router.get("/ticketbyid/:id", async (req, res) => {
+	try {
+		let { id } = req.params;
+		let rows = await getTicketsById(id);
+		res.status(200).json(rows);
+	} catch (ex) {
+		console.log(ex);
+		res.status(500).json({ "msg": "Error" });
+	}
+});
+
+
 
 module.exports = router;
