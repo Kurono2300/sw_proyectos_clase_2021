@@ -11,6 +11,13 @@ MySql
 npm install --save mysql  
 
 
+SnippetsBEMongo
+npm install express --save
+npm install -g express-generator
+express --git -css less --hbs SnippetsBEMongo 
+npm install
+npm install --global nodemon
+
 mongodb
 npm install --save mongodb
 
