@@ -24,3 +24,6 @@ NOTAS EXTRAS
 // unicah2021 -- PASSWORD
 // cluster0.qxjp5.mongodb.net/ -- MONGOHOST
 // sw202102 -- DATABASE
+
+
+Cambios nuevos
