@@ -1,0 +1,133 @@
+Insertar
+
+docsToInsert=[];
+for (var i=0; i<100; i++){let doc={}; doc.name="Snippet " + (i+1);  doc.snippet="snippet content " + (i+1); doc.user = "kurono2300"; doc.sales = Math.ceil(Math.random() * 100); docsToInsert.push(doc); }
+db.snippets.insert(docsToInsert);
+
+
+
+
+
+
+
+
+
+Borrar 
+
+var filter = { _id: ObjectId("60c93db7ecb49008b1fc2fa2")}
+db.snippets.deleteOne(filter)
+
+
+
+
+
+
+
+
+Agregar Keywords
+
+var keywordsPool = ["csharp","algorithm","controllers","views","models","design","utilities","class","js"]
+
+for( var i = 0;  i < 100; i++){
+     var filter = {name: `Snippet ${i+1}`}; 
+     var keywords = [keywordsPool[Math.floor(Math.random()*9)],keywordsPool[Math.floor(Math.random()*9)],keywordsPool[Math.floor(Math.random()*9)]]; 
+     var updateObject = {"$set": {"keywords": keywords } }; 
+     db.snippets.updateOne(filter, updateObject); 
+}
+
+
+
+
+Agregar Comentarios 
+
+var pooldeComments = [
+    {
+      email:"obetancourthunicah@gmail.com",
+      comment: "Excelente snippet",
+      date: 0
+    },
+    {
+      email:"obetancourthunicah@gmail.com",
+      comment: "Me ayudo mucho a trabajar",
+      date: 0
+    },
+    {
+      email:"alguncorreo@gmail.com",
+      comment: "snippet me salvo la vida",
+      date: 0
+    }
+  ];
+
+
+  for (var i=0; i<100 ; i++){
+    let filter = {name: `Snippet ${i+1}`};
+    let commentAmount = Math.ceil(Math.random()*3);
+    let comments = [];
+    for (var j=0; j<commentAmount; j++){
+      comments.push(
+        pooldeComments[Math.floor(Math.random()*3)]
+      );
+      comments[j].date = new Date().getTime();
+    }
+    let updateStm = {"$set":{ "comments": comments}};
+    db.snippets.updateOne(filter, updateStm);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Buscar Datos con una "X" keyword
+
+var filter = {"keywords": "class"}
+db.snippets.count(filter)
+
+
+Buscar Datos con mas de una "X" keyword
+
+var filter = {"keywords": ["class","models","controllers"]}
+db.snippets.count(filter)
+
+
+
+
+The $in operator selects the documents where the value of 
+a field equals any value in the specified array
+
+var filter = { "keywords": { $in: [ 'controllers', 'models' ] } }
+db.snippets.count(filter)
+
+
+
+
+The $or operator performs a logical OR operation on an array of 
+two or more <expressions> and selects the documents 
+that satisfy at least one of the <expressions>
+
+var filter = {$or:[{"keywords":"controllers"},{"keywords":"models"}]}
+db.snippets.count(filter)
+
+
+
+
+
+PAGINADO 
+
+let cursor = db.snippets.find({});
+
+cursos.limit(100);
+
+cursos.skip(50).limit(50);
