@@ -1,8 +1,21 @@
 Modulos utilizados para que funcione el Backend:
 
+SnippetsBE
+npm install express --save
+npm install -g express-generator
+express --git -css less --hbs snipptesBe 
+npm install
+npm install --global nodemon
+
 MySql
+npm install --save mysql  
+
+
 mongodb
+npm install --save mongodb
+
 dotenv
+npm install --save dotenv
 
 
 Pasos para crear proyecto express 
@@ -13,6 +26,11 @@ Pasos para crear proyecto express
 
 nombre de coleccion snippets 
 
+
+
+git remote add origin https://github.com/Kurono2300/sw_proyectos_clase_2021.git
+git branch -M main
+git push -u origin main
 
 
 NOTAS EXTRAS
