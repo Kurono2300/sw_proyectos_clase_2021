@@ -1,0 +1,26 @@
+Modulos utilizados para que funcione el Backend:
+
+MySql
+mongodb
+dotenv
+
+
+Pasos para crear proyecto express 
+1. express --git -css less --h bs "Nombre Carpeta de Proyecto Express"
+2. npm install
+3. npm install "otras dependencias"
+
+
+nombre de coleccion snippets 
+
+
+
+NOTAS EXTRAS
+// MONGOURI RAW
+// 'mongodb+srv://kurono2300:unicah2021@cluster0.qxjp5.mongodb.net/sw202102?retryWrites=true&w=majority'
+
+//DATOS PARA CONEXION A MONGO DB
+// Kurono2300 -- USERNAME
+// unicah2021 -- PASSWORD
+// cluster0.qxjp5.mongodb.net/ -- MONGOHOST
+// sw202102 -- DATABASE
