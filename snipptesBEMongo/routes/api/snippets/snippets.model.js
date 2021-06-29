@@ -238,7 +238,6 @@ module.exports.getByCommentUser = async (email)=>{
 
 
 // PAGINADO
-
 module.exports.getAllFacet = async (page, itemsPerPage) => {
     try {
         let options = {
@@ -252,6 +251,7 @@ module.exports.getAllFacet = async (page, itemsPerPage) => {
     let rownum = await docsCursor.count();
     let rows = await docsCursor.toArray()
     return {rownum, rows};
+
     } catch (ex) {
         console.log(ex);
         throw (ex);
@@ -262,6 +262,42 @@ module.exports.getAllFacet = async (page, itemsPerPage) => {
 
 
 
+
+// Agregadores
+module.exports.getSalesFreq = async () =>{
+    try {
+        let pipeline = [];
+        // Agrupo por el valor de sales y suma 1 por cada documento
+        pipeline.push({
+            "$group": {
+                _id: "$sales",
+                salesAmount: {
+                    $sum: 1
+                }
+            }
+        });
+        
+        // Ordena los documentos resultantes del $group de forma descendiente por el conteo
+        pipeline.push({
+            "$sort": {
+                salesAmount: -1
+            }
+        });
+        
+        //Limitamos el numero de documentos despues del sort
+        pipeline.push({
+            "$limit": 5
+        });
+
+        let cursor = snippetCollection.aggregate(pipeline);
+        let rows = await cursor.toArray();
+        return rows;
+
+        } catch(ex){
+            console.log(ex);
+            throw (ex);
+        }
+}
 
 
 
