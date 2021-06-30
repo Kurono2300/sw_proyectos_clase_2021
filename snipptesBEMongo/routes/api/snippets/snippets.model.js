@@ -301,6 +301,39 @@ module.exports.getSalesFreq = async () =>{
 
 
 
+module.exports.getCommentsByDate = async () =>{
+    try {
+        let pipeline = [];
+        // Agrupo por el valor de sales y suma 1 por cada documento
+        pipeline.push({
+            "$unwind": {
+                path: "$comments",
+                includeArrayIndex: 'comments_index',
+                preserveNullAndEmptyArrays: false
+            }
+        });
+        
+        // Ordena los documentos resultantes del $group de forma descendiente por el conteo
+        pipeline.push({
+            "$group": {
+                _id: {$dateToString:{date:{$toDate: "$comments.date"}, format:"%Y-%m-%d %H:00:%S", timezone:"-0600"}},
+                frecuency: {
+                $sum: 1}
+            }
+        });
+        
+
+        let cursor = snippetCollection.aggregate(pipeline);
+        let rows = await cursor.toArray();
+        return rows;
+
+        } catch(ex){
+            console.log(ex);
+            throw (ex);
+        }
+}
+
+
 
 
 

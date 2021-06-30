@@ -3,7 +3,7 @@ const router = express.Router();
 const { getAll, addOne , addAny, getById, getBySales, 
 	getBySalesWithOperator, getBySalesRange, getByKeyword,
 	addKeywords, addKeyword, getByCommentUser,
-	deleteById, getAllFacet, getSalesFreq} = require('./snippets.model');
+	deleteById, getAllFacet, getSalesFreq, getCommentsByDate} = require('./snippets.model');
 
 
 // BASIC CRUD
@@ -181,6 +181,16 @@ router.get("/facet/:page/:size", async (req, res) => {
 router.get("/aggregate/sales", async (req, res) => {
 	try {
 		let result = await getSalesFreq();
+		res.status(200).json(result);
+	} catch (ex) {
+		res.status(500).json({ "msg": "Error" });
+	}
+});
+
+
+router.get("/aggregate/commentsbydate", async (req, res) => {
+	try {
+		let result = await getCommentsByDate();
 		res.status(200).json(result);
 	} catch (ex) {
 		res.status(500).json({ "msg": "Error" });
