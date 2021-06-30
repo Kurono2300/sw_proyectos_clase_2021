@@ -131,3 +131,41 @@ let cursor = db.snippets.find({});
 cursos.limit(100);
 
 cursos.skip(50).limit(50);
+
+
+
+
+
+Esto se usa en Agreggations
+Script Para hacer un sort y group by comment frecuency en MongoDB
+[{$unwind: {
+  path: "$comments",
+  includeArrayIndex: 'comments_index',
+  preserveNullAndEmptyArrays: false
+}}, {$group: {
+  _id: "$comments.email",
+  frecuency: {
+    $sum: 1
+  }
+}}, {$sort: {
+  frecuency: 1
+}}]
+
+
+
+
+
+
+
+Esto se usa en Agreggations
+Script para hacer un group Comments by date en MongoDB 
+[{$unwind: {
+  path: "$comments",
+  includeArrayIndex: 'comments_index',
+  preserveNullAndEmptyArrays: false
+}}, {$group: {
+  _id: {$dateToString:{date:{$toDate: "$comments.date"}, format:"%Y-%m-%d %H:00:%S", timezone:"-0600"}},
+  frecuency: {
+    $sum: 1
+  }
+}}]
