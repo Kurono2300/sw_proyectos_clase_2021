@@ -33,7 +33,7 @@ router.post('/login', async (req, res)=>{
                     jwt: jwt.sign({ email, roles, _id }, process.env.JWT_SECRET, {expiresIn:'240m'}),
                     user: user
                 }
-                //res.status(200).json({"msg":"Sesion Iniciada"});
+                res.status(200).json(payload);
                 //console.log(payload);
             }else {
             console.log(`Usuario ${email} no coincide contraseña`);
