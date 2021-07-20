@@ -3,12 +3,22 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors');
 
 var indexRouter = require('./routes/index');
 //var usersRouter = require('./routes/users'); //ESTO COMENTE
 var apiRouter = require('./routes/api'); //ESTO AGREGUE
 
+var corsOptions = {
+  origin: process.env.CORS_ORIGIN,
+  optionSuccessStatus: 200
+}
+
 var app = express();
+//enable cors
+if (process.env.ENABLE_CORS == "1"){
+  app.use(cors(corsOptions));
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
