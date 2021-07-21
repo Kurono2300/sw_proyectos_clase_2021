@@ -37,6 +37,9 @@ router.use("/camisas", camisas_routes);
 router.use("/helpdesk", helpdesk_routes);
 
 
+router.get("/utils/ping", jwtMiddleWare, (req,res)=>{
+    res.json({"msg":"ok"});
+});
 
 
 
