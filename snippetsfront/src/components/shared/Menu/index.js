@@ -18,7 +18,8 @@ const Menu = ()=>{
     return (
       <ul className="Menu">
         <li><NavLink activeClassName="active" to="/mysnippets">Snippets</NavLink></li>
-        <li><a >Dashboard</a></li>
+        <li><NavLink activeClassName="active" to="/dashboard">Dashboard</NavLink></li>
+        {/* <li><a >Dashboard</a></li> */}
         <li><a >Profile</a></li>
         <li><a >Upload</a></li>
       </ul>

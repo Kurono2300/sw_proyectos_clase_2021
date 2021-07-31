@@ -19,6 +19,7 @@ import SiginPage from './components/public/Signin/';
 import MySnippetsPage from './components/private/MySnippets';
 import MySnippetPage from './components/private/MySnippet';
 import AddSnippetPage from './components/private/AddSnippet';
+import DashboardPage from './components/private/Dashboard';
 
 import './App.css';
 
@@ -37,6 +38,8 @@ function App() {
                   <PrivateRoute exact path="/mysnippets" component={MySnippetsPage}></PrivateRoute>
                   <PrivateRoute exact path="/mysnippet" component={MySnippetPage}></PrivateRoute>
                   <PrivateRoute exact path="/addsnippet" component={AddSnippetPage}></PrivateRoute>
+                  <PrivateRoute exact path="/dashboard" component={DashboardPage}></PrivateRoute>
+                  
                   
               </Switch>
               <Menu login={false}></Menu>
