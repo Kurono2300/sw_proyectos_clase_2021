@@ -19,10 +19,8 @@ const Dashboard = () => {
         async ()=>{
             const { data } = await privateaxios.post("/api/snippets/countSnippetsUser/",{user:info});
             dispatch({type:SNIPPET_CURRENT_LOAD, payload:data});
-            //console.log(data);
-        },
-        []
-    );
+        },[]);
+        
     const { currentSnippet } = snippet;
 
 
@@ -43,8 +41,8 @@ const Dashboard = () => {
                 </label>
 
                 <label for="contact" className="labelformats">
-                    <span className="spanTitles">Indicador X</span>
-                    <p className="contents">Datos 3</p>
+                    <span className="spanTitles">Indicador Vacio</span>
+                    <p className="contents">Placeholder Text</p>
                 </label>
             </section>
 
