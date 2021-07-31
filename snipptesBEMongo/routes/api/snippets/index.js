@@ -3,7 +3,7 @@ const router = express.Router();
 const { getAll, addOne , addAny, getById, getBySales, 
 	getBySalesWithOperator, getBySalesRange, getByKeyword,
 	addKeywords, addKeyword, getByCommentUser,
-	deleteById, getAllFacet, getSalesFreq, getCommentsByDate} = require('./snippets.model');
+	deleteById, getAllFacet, getSalesFreq, getCommentsByDate, getCountByUser} = require('./snippets.model');
 
 
 // BASIC CRUD
@@ -218,6 +218,19 @@ router.get("/", async (req, res)=>{
 	}
 });
 
+
+// Seccion del Dashboard
+router.post("/countSnippetsUser", async (req, res) => {
+	try{
+		let {user} = req.body;
+		let _user = user.toString();
+
+		let rows = await getCountByUser(_user);
+		res.status(200).json(rows);
+	}catch(ex){
+		res.status(500).json({ "msg": "Error" });
+	}
+});
 
 module.exports = router;
 

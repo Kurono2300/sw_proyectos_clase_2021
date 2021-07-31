@@ -334,7 +334,19 @@ module.exports.getCommentsByDate = async () =>{
 }
 
 
-
+// Seccion del Dashboard
+module.exports.getCountByUser = async (user)=> {
+    try {
+        const filter = {user:user};
+        let cursor = snippetCollection.find(filter).count();
+        let rows = await cursor;
+        return rows;
+        
+    } catch (ex) {
+        console.log(ex);
+        throw (ex);
+    }
+}
 
 
 
